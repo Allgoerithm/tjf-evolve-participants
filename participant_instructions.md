@@ -82,7 +82,30 @@ The first start after the update downloads the OpenSearch Dashboards image
 `check` prints `"ok": true` when everything works. Every `evolve-eval` command
 prints one JSON object; on problems it contains an `"error"` with a hint.
 
-If you would like to develop an intuition for the data available in OpenSearch you can use [Dashboards Discover](http://localhost:5601/app/discover) to browse the CVs.
+### Looking at the CVs in OpenSearch Dashboards
+
+[Dashboards Discover](http://localhost:5601/app/discover) is a search page for
+the CV index. Two things make it useful here:
+
+- **Trying out a query.** In the search bar, switch the query language from
+  DQL to **Lucene** (the generated queries use Lucene syntax). Paste a query,
+  for example one from `baseline.json` (exercise 0), and you see right away how
+  many CVs it finds and which words matched. If a query finds nothing, remove
+  terms one at a time until it finds CVs: that shows which part is too strict.
+- **Seeing how the CVs are worded.** In the field list on the left, hover over
+  a field such as `skills` or `certifications` and click the details icon (a
+  page with a magnifying glass) to the right of its name. It shows the most
+  common values among the CVs loaded in the table. That tells you which terms
+  a query should use.
+
+The ranking in Discover differs a little from the scoring: the scoring searches
+only `title`, `summary`, `skills`, `experience`, `certifications` and
+`languages`, and weights `title` and `skills` twice. Hit counts and zero hits
+are comparable; the exact top 5 is not.
+
+Documentation, if you want more:
+[Discover](https://docs.opensearch.org/latest/dashboards/discover/index-discover/),
+[Lucene query syntax](https://docs.opensearch.org/latest/query-dsl/full-text/query-string/).
 
 ## Overview diagram
 
@@ -294,9 +317,10 @@ Tips for all exercises:
    `uv run evolve-eval baseline --details > baseline.json`
 2. Read `evolve/initial_prompt.txt` and a few generated queries in
    `baseline.json`. How many profiles score 0, and why? Compare a query with
-   its profile in `queries/<id>.txt` and with a few CVs in `CVs/`. You can
-   also browse and search the CVs in
-   [Dashboards Discover](http://localhost:5601/app/discover).
+   its profile in `queries/<id>.txt` and with a few CVs in `CVs/`. Paste a
+   query that scores 0 into
+   [Dashboards Discover](#looking-at-the-cvs-in-opensearch-dashboards)
+   (Lucene mode): does it find any CVs at all? Which term is the problem?
 3. Optional: write your own improved prompt into a file and score it with
    `uv run evolve-eval run my_prompt.txt`. Keep the score in mind for later.
 
