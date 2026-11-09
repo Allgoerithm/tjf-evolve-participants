@@ -19,10 +19,11 @@ exported.
 | Command | What it does |
 |---|---|
 | `git pull` | get the latest version of the workshop material (`git stash && git pull && git stash pop` if you have changed files) |
-| `docker compose up -d --wait` | start OpenSearch (also after a restart of the laptop or WSL) |
+| `docker compose up -d --wait` | start OpenSearch and Dashboards (also after a restart of the laptop or WSL) |
+| <http://localhost:5601/app/discover> | browse and search the CVs in OpenSearch Dashboards |
 | `uv run evolve-eval index` | load the 1000 CVs (once; `--if-needed` skips an existing index) |
 | `uv run evolve-eval check` | test OpenSearch, index and API key: expect `"ok": true` |
-| `docker compose down` | stop OpenSearch, keep the index (`-v` deletes it) |
+| `docker compose down` | stop OpenSearch and Dashboards, keep the index (`-v` deletes it) |
 
 ## Scoring a prompt
 

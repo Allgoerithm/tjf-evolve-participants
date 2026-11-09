@@ -71,14 +71,18 @@ Run all workshop commands from the same terminal. A new terminal needs the comma
 ### Starting OpenSearch
 
 ```bash
-docker compose up -d --wait     # start OpenSearch
+docker compose up -d --wait     # start OpenSearch and OpenSearch Dashboards
 uv run evolve-eval index        # load the 1000 CVs into OpenSearch
 uv run evolve-eval check        # checks OpenSearch, the index and your API key
 ```
 
+The first start after the update downloads the OpenSearch Dashboards image
+(about 0.5 GB), so it takes a few minutes longer.
+
 `check` prints `"ok": true` when everything works. Every `evolve-eval` command
 prints one JSON object; on problems it contains an `"error"` with a hint.
 
+If you would like to develop an intuition for the data available in OpenSearch you can use [Dashboards Discover](http://localhost:5601/app/discover) to browse the CVs.
 
 ## Overview diagram
 
@@ -290,7 +294,9 @@ Tips for all exercises:
    `uv run evolve-eval baseline --details > baseline.json`
 2. Read `evolve/initial_prompt.txt` and a few generated queries in
    `baseline.json`. How many profiles score 0, and why? Compare a query with
-   its profile in `queries/<id>.txt` and with a few CVs in `CVs/`.
+   its profile in `queries/<id>.txt` and with a few CVs in `CVs/`. You can
+   also browse and search the CVs in
+   [Dashboards Discover](http://localhost:5601/app/discover).
 3. Optional: write your own improved prompt into a file and score it with
    `uv run evolve-eval run my_prompt.txt`. Keep the score in mind for later.
 
