@@ -24,10 +24,10 @@ Es öffnet sich ein Popupmenü, dort auf "Einstellungen" klicken, dann auf "Kont
 - Windows: Docker Engine direkt in WSL installieren (siehe unten).
 - Test:
 
-  ```bash
+```bash
   docker run --rm hello-world
   docker compose version
-  ```
+```
 
 ### Docker Engine in WSL installieren
 
@@ -37,17 +37,17 @@ du sie nicht.
 
 1. **systemd prüfen.** Docker wird in WSL über systemd gestartet:
 
-   ```bash
+```bash
    systemctl is-system-running
-   ```
+```
 
    Erscheint `running` oder `degraded`, ist alles gut. Erscheint eine
    Fehlermeldung („System has not been booted with systemd …“), systemd
    einschalten:
 
-   ```bash
+```bash
    printf '[boot]\nsystemd=true\n' | sudo tee -a /etc/wsl.conf
-   ```
+```
 
    Im Fall einer solchen Fehlermeldung (und nur dann) WSL neu starten: 
    in einer PowerShell (die einzige Ausnahme von der Regel oben) 
@@ -56,25 +56,25 @@ du sie nicht.
 2. **Docker installieren.** Das offizielle Installationsskript richtet die
    Docker-Paketquelle ein und installiert Docker Engine samt Compose:
 
-   ```bash
+```bash
    curl -fsSL https://get.docker.com | sudo sh
-   ```
+```
 
    Wer das Skript nicht verwenden möchte, findet die einzelnen Schritte in der
    [Docker-Anleitung für Ubuntu](https://docs.docker.com/engine/install/ubuntu/).
 
 3. **Docker beim Start von WSL automatisch starten:**
 
-   ```bash
+```bash
    sudo systemctl enable --now docker
-   ```
+```
 
 4. **Docker ohne `sudo` nutzen.** Deinen Benutzer zur Gruppe `docker`
    hinzufügen:
 
-   ```bash
+```bash
    sudo usermod -aG docker $USER
-   ```
+```
 
    Danach **alle WSL-Terminals schließen und ein neues öffnen**; die
    Gruppenmitgliedschaft gilt erst ab dann. Ohne diesen Schritt meldet Docker
@@ -132,10 +132,19 @@ ausführen, damit du den neuesten Stand hast.
 Falls es bei dir gar nicht geht: Auf der GitHub-Seite
 <https://github.com/Allgoerithm/tjf-evolve-participants> gibt es unter
 „Code“ → „Download ZIP“ das Repository als Zip-Datei. Unter Windows die Datei
-dann im WSL-Terminal nach `~/repos` entpacken
-(`cd ~/repos && unzip /mnt/c/Users/<NAME>/Downloads/tjf-evolve-participants-main.zip`;
-fehlt `unzip`: `sudo apt install unzip`),
-nicht im Windows-Explorer.
+dann im WSL-Terminal nach `~/repos` entpacken, nicht im Windows-Explorer.
+Die erste Zeile installiert `unzip`; ist es schon da, ändert sie nichts:
+
+```bash
+sudo apt install -y unzip
+mkdir -p ~/repos && cd ~/repos
+unzip /mnt/c/Users/<NAME>/Downloads/tjf-evolve-participants-main.zip
+mv tjf-evolve-participants-main tjf-evolve-participants
+cd tjf-evolve-participants
+```
+
+`<NAME>` ist dein Windows-Benutzername. Danach weiter mit `uv sync` und
+`docker compose pull` wie oben.
 
 ## 6. Kurzer Test (optional)
 
