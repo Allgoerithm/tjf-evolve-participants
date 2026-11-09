@@ -14,9 +14,9 @@ dauert rund 20–30 Minuten. Am Workshop-Tag geht die Einrichtung dann schnell.
 ## 2. Deinen b.chat API-key heraussuchen
 
 b.chat öffnen unter chat.btelligent.com. In der Seitenleiste links unten auf den eigenen Usernamen klicken.
-Es öffnet sich ein Popupmenü, dort auf "Einstellungen" klicken, dann auf "Konto". Ganz nach unten scrollen,
-bei "Zugangsdaten" auf "anzeigen" klicken und den API-Schlüssel herauskopieren und in Keepass o.ä. sichern,
-so dass ihr ihn beim Workshop zur Hand habt.
+Es öffnet sich ein Popupmenü, dort auf "Einstellungen" klicken, dann auf "Konto". Scrollt ganz nach unten, dann sollte es so aussehen wie auf dem Screenshot unten. Nun bei "Zugangsdaten" auf "anzeigen" klicken und den API-Schlüssel herauskopieren und in Keepass o.ä. sichern, so dass ihr ihn beim Workshop zur Hand habt.
+
+![b.chat: Einstellungen → Konto → Zugangsdaten → API-Schlüssel](docs/images/bchat-api-schluessel.png)
 
 ## 3. Docker
 
