@@ -79,6 +79,7 @@ uv run evolve-eval check        # checks OpenSearch, the index and your API key
 `check` prints `"ok": true` when everything works. Every `evolve-eval` command
 prints one JSON object; on problems it contains an `"error"` with a hint.
 
+If you would like to develop an intuition for the data available in OpenSearch you can use [Dashboards Discover](http://localhost:5601/app/discover) to browse the CVs.
 
 ## Overview diagram
 

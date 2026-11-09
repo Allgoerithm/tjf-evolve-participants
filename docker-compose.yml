@@ -22,6 +22,34 @@ services:
       interval: 10s
       timeout: 10s
       retries: 12
+  dashboards:
+    image: opensearchproject/opensearch-dashboards:3.9.0
+    environment:
+      OPENSEARCH_HOSTS: '["http://opensearch:9200"]'
+      DISABLE_SECURITY_DASHBOARDS_PLUGIN: 'true'
+    ports:
+      - '127.0.0.1:5601:5601'
+    depends_on:
+      opensearch:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', 'curl -fsS http://localhost:5601/api/status >/dev/null']
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+  dashboards-setup:
+    image: opensearchproject/opensearch-dashboards:3.9.0
+    entrypoint: ["/usr/share/opensearch-dashboards/node/bin/node"]
+    command: ["/setup/dashboards-setup.mjs"]
+    environment:
+      DASHBOARDS_URL: http://dashboards:5601
+    volumes:
+      - ./docker/dashboards-setup.mjs:/setup/dashboards-setup.mjs:ro
+    depends_on:
+      dashboards:
+        condition: service_healthy
+    restart: "no"
 
 volumes:
   opensearch-data:
